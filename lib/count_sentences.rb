@@ -1,21 +1,42 @@
 require 'pry'
 
-class String
+class Song
+  attr_accessor :name, :genre, :artist
+  @@count = 0
+  @@artists = []
+  @@genres = []
 
-  def sentence?
-    self[-1] == '.' ? true : false
+  def initialize(name, artist, genre)
+    @name = name
+    @artist = artist
+    @genre = genre
+    @@count += 1
+    @@artists << artist
+    @@genres << genre
   end
 
-  def question?
-      self[-1] == '?' ? true : false
+  def self.count
+    @@count
   end
 
-  def exclamation?
-    self[-1] == '!' ? true : false
+  def self.artists
+    @@artists.uniq
   end
 
-  def count_sentences
-    str = self.split(/[.?!]/)
-    str.count{|sentence| sentence != ''}
+  def self.genres
+    @@genres.uniq
   end
+
+  def self.genre_count
+    count = {}
+    self.genres.each do |key|
+      count[key] = @@genres.count(key)
+    end
+    count
+  end
+
+  def self.artist_count
+
+  end
+
 end
